@@ -1,0 +1,13 @@
+<p>todos works!</p>
+
+<input type="text" [(ngModel)]="newTodo" />
+
+<button (click)="addTodo()">Add todo</button>
+
+<h2>Todos {{todosCount | async}}</h2>
+
+<ul>
+  <li *ngFor="let todo of todos | async" (click)="toggleTodo(todo.name)">
+    {{ todo.name }} <input type="checkbox" [checked]="todo.done" />
+  </li>
+</ul>
