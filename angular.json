@@ -129,5 +129,10 @@
   "defaultProject": "ngrx-test",
   "cli": {
     "defaultCollection": "@ngrx/schematics"
+  },
+  "schematics": {
+    "@ngrx/schematics:component": {
+      "style": "scss"
+    }
   }
 }
