@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
+import * as fromUser from '../../core/user/user.module';
+import * as fromRouter from '../../core/router/router.module';
+
 import * as fromTodos from './state';
 
 @Component({
@@ -10,15 +13,19 @@ import * as fromTodos from './state';
   styleUrls: ['./todos.component.scss']
 })
 export class TodosComponent implements OnInit {
+  user: Observable<fromUser.User>;
   todosCount: Observable<number>;
   todos: Observable<fromTodos.Todo[]>;
+  filter: Observable<any>;
   newTodo: string;
 
   constructor(private store: Store<{}>) {}
 
   ngOnInit() {
     this.todos = this.store.select(fromTodos.getAllTodos);
-    this.todosCount = this.store.select(fromTodos.getTodosCount);
+    this.todosCount = this.store.select(fromTodos.getTodosCount(), { multiply: 2 });
+    this.user = this.store.select(fromUser.getUser);
+    this.filter = this.store.select(fromRouter.selectFilter);
   }
 
   addTodo() {

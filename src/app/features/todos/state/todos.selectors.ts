@@ -12,7 +12,7 @@ export const getDoneTodos = createSelector(
   getAllTodos,
   todos => todos.filter(todo => todo.done)
 );
-export const getTodosCount = createSelector(
+export const getTodosCount = () => createSelector(
   getAllTodos,
-  todos => todos.length
+  (todos, props: { multiply?: number } = {}) => todos.length * (props.multiply || 1)
 );
