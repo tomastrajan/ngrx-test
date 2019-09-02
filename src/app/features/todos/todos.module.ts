@@ -5,7 +5,7 @@ import {FormsModule} from '@angular/forms';
 
 import { TodosRoutingModule } from './todos-routing.module';
 import { TodosComponent } from './todos.component';
-import { FEATURE_NAME, reducer } from './state/todos.reducer';
+import { todosFeatureKey, reducer } from './state/todos.reducer';
 
 @NgModule({
   declarations: [TodosComponent],
@@ -13,7 +13,7 @@ import { FEATURE_NAME, reducer } from './state/todos.reducer';
     CommonModule,
     FormsModule,
     TodosRoutingModule,
-    StoreModule.forFeature(FEATURE_NAME, reducer)
+    StoreModule.forFeature(todosFeatureKey, reducer)
   ]
 })
 export class TodosModule {}

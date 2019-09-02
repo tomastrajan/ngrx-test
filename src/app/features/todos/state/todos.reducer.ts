@@ -1,22 +1,30 @@
 import { Action, createReducer, on } from '@ngrx/store';
 
-import * as todosActions from './todos.actions';
+import * as TodosActions from './todos.actions';
 
-export const FEATURE_NAME = 'todos';
+export const todosFeatureKey = 'todos';
+
+export interface State {
+  items: {
+    [name: string]: Todo;
+  };
+}
 
 const initialState: State = {
   items: {}
 };
 
-const todosReducerFn = createReducer(
+const todosReducer = createReducer(
   initialState,
-  on(todosActions.addTodo, (state, { name }) => ({
+
+  on(TodosActions.addTodo, (state, { name }) => ({
     items: {
       ...state.items,
       [name]: { name, done: false }
     }
   })),
-  on(todosActions.removeTodo, (state, { name }) => {
+
+  on(TodosActions.removeTodo, (state, { name }) => {
     const newState = {
       items: {
         ...state.items
@@ -25,13 +33,15 @@ const todosReducerFn = createReducer(
     delete newState.items[name];
     return newState;
   }),
-  on(todosActions.toggleTodo, (state, { name }) => ({
+
+  on(TodosActions.toggleTodo, (state, { name }) => ({
     items: {
       ...state.items,
       [name]: { name, done: !state.items[name].done }
     }
   })),
-  on(todosActions.deleteDoneTodos, state => {
+
+  on(TodosActions.deleteDoneTodos, state => {
     const notDoneNames = Object.values(state.items)
       .filter(item => !item.done)
       .map(item => item.name);
@@ -45,13 +55,7 @@ const todosReducerFn = createReducer(
 );
 
 export function reducer(state: State | undefined, action: Action) {
-  return todosReducerFn(state, action);
-}
-
-export interface State {
-  items: {
-    [name: string]: Todo;
-  };
+  return todosReducer(state, action);
 }
 
 export interface Todo {
