@@ -3,6 +3,7 @@
 <input type="text" [(ngModel)]="newTodo" />
 
 <button (click)="addTodo()">Add todo</button>
+<button (click)="deleteDoneTodos()">Delete done todos</button>
 
 <h2>Todos {{todosCount | async}}</h2>
 

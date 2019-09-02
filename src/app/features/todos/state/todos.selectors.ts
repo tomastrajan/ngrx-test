@@ -1,7 +1,18 @@
-import {createFeatureSelector, createSelector} from '@ngrx/store';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
-const getTodos = createFeatureSelector<any>('todos');
+import { FEATURE_NAME, State } from './todos.reducer';
 
-export const getAllTodos = createSelector(getTodos, todos => todos);
-export const getDoneTodos = createSelector(getAllTodos, todos => todos.filter(todo => todo.done));
-export const getTodosCount = createSelector(getAllTodos, todos => todos.length);
+const getTodos = createFeatureSelector<State>(FEATURE_NAME);
+
+export const getAllTodos = createSelector(
+  getTodos,
+  todos => Object.values(todos.items)
+);
+export const getDoneTodos = createSelector(
+  getAllTodos,
+  todos => todos.filter(todo => todo.done)
+);
+export const getTodosCount = createSelector(
+  getAllTodos,
+  todos => todos.length
+);

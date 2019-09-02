@@ -2,9 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
 
-import { Todo } from './state/todos.reducer';
-import {getAllTodos, getTodosCount} from './state/todos.selectors';
-import {addTodo, toggleTodo} from './state/todos.actions';
+import * as fromTodos from './state';
 
 @Component({
   selector: 'app-todos',
@@ -13,22 +11,26 @@ import {addTodo, toggleTodo} from './state/todos.actions';
 })
 export class TodosComponent implements OnInit {
   todosCount: Observable<number>;
-  todos: Observable<Todo[]>;
+  todos: Observable<fromTodos.Todo[]>;
   newTodo: string;
 
   constructor(private store: Store<{}>) {}
 
   ngOnInit() {
-    this.todos = this.store.select(getAllTodos);
-    this.todosCount = this.store.select(getTodosCount);
+    this.todos = this.store.select(fromTodos.getAllTodos);
+    this.todosCount = this.store.select(fromTodos.getTodosCount);
   }
 
   addTodo() {
-    this.store.dispatch(addTodo({ name: this.newTodo }));
+    this.store.dispatch(fromTodos.addTodo({ name: this.newTodo }));
     this.newTodo = '';
   }
 
   toggleTodo(name: string) {
-    this.store.dispatch(toggleTodo({ name }));
+    this.store.dispatch(fromTodos.toggleTodo({ name }));
+  }
+
+  deleteDoneTodos() {
+    this.store.dispatch(fromTodos.deleteDoneTodos());
   }
 }
