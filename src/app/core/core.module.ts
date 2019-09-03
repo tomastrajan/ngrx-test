@@ -11,7 +11,17 @@ import { RouterModule } from './router/router.module';
   imports: [
     // vendor
     CommonModule,
-    StoreModule.forRoot({}),
+    StoreModule.forRoot(
+      {},
+      {
+        runtimeChecks: {
+          strictStateImmutability: true,
+          strictActionImmutability: true,
+          strictStateSerializability: true,
+          strictActionSerializability: true
+        }
+      }
+    ),
     EffectsModule.forRoot([]),
 
     // local
@@ -19,4 +29,4 @@ import { RouterModule } from './router/router.module';
     UserModule
   ]
 })
-export class CoreModule { }
+export class CoreModule {}

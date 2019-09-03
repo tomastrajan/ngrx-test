@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { Store } from '@ngrx/store';
-import { Observable } from 'rxjs';
+import { from, Observable } from 'rxjs';
 
 import * as fromUser from './core/user/user.module';
+import { take } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -18,4 +19,7 @@ export class AppComponent implements OnInit {
     this.username = this.store.select(fromUser.getUsername);
   }
 
+  mutateUser() {
+    this.store.dispatch(fromUser.mutateUser());
+  }
 }

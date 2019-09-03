@@ -38,7 +38,18 @@ const userReducer = createReducer(
     loading: false,
     user: null,
     error
-  }))
+  })),
+
+  on(UserActions.mutateUser, state => {
+    // should fail right ?
+    state.user = { username: 'mutated', roles: ['mutant'] };
+    return state;
+
+    // return {
+    //   ...state,
+    //   user: { username: 'mutated', roles: [] }
+    // };
+  })
 );
 
 export function reducer(state: State | undefined, action: Action) {
