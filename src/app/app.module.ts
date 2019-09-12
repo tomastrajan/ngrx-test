@@ -7,9 +7,10 @@ import { CoreModule } from './core/core.module';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ExampleComponent } from './example/example.component';
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, ExampleComponent],
   imports: [
     BrowserModule,
     StoreModule.forRoot({}),

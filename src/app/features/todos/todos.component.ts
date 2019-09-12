@@ -24,8 +24,6 @@ export class TodosComponent implements OnInit {
   ngOnInit() {
     this.todos = this.store.select(fromTodos.getAllTodos);
     this.todosCount = this.store.select(fromTodos.getTodosCount(), { multiply: 2 });
-    this.user = this.store.select(fromUser.getUser);
-    this.filter = this.store.select(fromRouter.selectFilter);
   }
 
   addTodo() {
